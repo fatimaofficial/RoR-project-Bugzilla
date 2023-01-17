@@ -1,0 +1,38 @@
+<h1>Bugs</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Project name</th>
+      <th scope="col">Title</th>
+      <th scope="col">Type</th>
+      <th scope="col">Status</th>
+      <th scope="col">Deadline</th>
+      <th scope="col">Action</th>
+       <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+     <%count=0%>
+     <% @bugs.each do |i| %>
+      <tr>
+        <th scope="row"><%= count+=1%></th>
+        <td><%= i.project.name %></td>
+        <td><%= i.title %></td>
+        <td><%= i.bug_type %></td>
+        <td><%= i.status %></td>
+        <td><%=i.deadline %></td>
+        <td><button type="button" class="btn btn-outline-secondary">Pick Bug</button></td>
+        <td><%= link_to 'Show Project', [@project] %></td>
+        <td><%= link_to 'Edit Bug', edit_project_bug_path(@project, i) %></td>
+        <td><%= link_to 'Delete Bug', [@project, @bug], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+     <% end %>
+    </tr>
+  </tbody>
+</table>
+
+
+
+

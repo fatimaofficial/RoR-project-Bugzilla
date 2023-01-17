@@ -1,0 +1,35 @@
+<h2>New Bug</h2>
+
+<%= form_with model: [@project, @bug] do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+    <% @bug.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+  <div>
+  <br>
+    <%= form.label :bug_type %><br>
+    <%= form.select :bug_type, options_for_select(Bug.bug_types.map {|key, value| [key.titleize, Bug.bug_types.key(value)]}, @bug.bug_type) %>
+  </div>
+  <div>
+  <br>
+    <%= form.label :status %><br>
+    <%= form.select :status, options_for_select(Bug.statuses.map {|key, value| [key.titleize, Bug.statuses.key(value)]}, @bug.status) %>
+    <% @bug.errors.full_messages_for(:status).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+  <div>
+   <br>
+    <%= form.label :deadline %><br>
+    <%= form.text_field :deadline ,placeholder: "d/m/y"%><br>
+  </div>
+  <div>
+    <br>
+    <%= form.submit  "Add a New Bug" %>
+  </div>
+<% end %>
+
+

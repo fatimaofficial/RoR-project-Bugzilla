@@ -1,0 +1,28 @@
+<div class="container">
+ <div class="row">
+    <div class="col-6">
+       <h2>Projects</h2>
+    </div>
+    <div class="col-6">
+       <%if(current_user.type=="Manager")%>
+         <%= link_to "Create Project", new_project_path ,class:'btn btn-dark',style:"margin-left:66%" %> 
+       <%end%>
+    </div>
+ </div>
+  <div class="row">
+  <% @projects.each do |i| %>
+  <div class="card" style="width: 18rem;margin-right: 8%;margin-top: 4%;">
+    <div class="card-body">
+      <h5 class="card-title"><%= i.name%></h5>
+      <h6 class="card-subtitle mb-2 text-muted">Project id:<%= i.id%></h6>
+      <p class="card-text"><%= i.description%></p>
+      <%if(current_user=="Developer")%>
+          <%= link_to 'Show Bugs on this project', project_bugs_path(@project) %><br><br>
+      <%else%>
+        <%= link_to "show Details",  project_details_project_path(i),class:'btn btn-outline-secondary' %> 
+      <%end%>
+    </div>
+  </div>
+  <%end%>
+  </div>
+</div>

@@ -13,9 +13,41 @@
    <p><%= @project.name%></p>
    <h4>Description: </h4><p><%= @project.description%></p><br>
    <p><%= link_to 'Show Bugs', project_bugs_path(@project),class:'btn btn-outline-secondary' %><br><br></p>
-   <p>Assign Developer to this project...</p>
+  
+   <h4>Developers Assign to this projects are....</h4>
+   <% @assign_developers=@project.developers%>
+   <table class="table table-hover">
+      <thead>
+         <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+         <%count=0%>
+         <% @assign_developers.each do |i| %>
+            <tr>
+            <th scope="row"><%= count+=1%></th>
+            <td><%= i.name %></td>
+            <td><%= link_to 'Remove Developer', remove_dev_project_path(@project,i),class:'btn btn-outline-secondary'%></td>
+            </tr>
+         <% end %>
+         </tr>
+      </tbody>
+   </table>
+
+   <%# <p><br><br>Remove Developer from this project...</p> %>
+   <%# <%= form_with url: assign_project_project_path(@project), method: :post, model: @user do |f| %>
+      <%# <%= f.select :did, @dev_assign.map {|i| [i.name, i.id]}, class:"btn btn-default btn-primary"%> 
+      <%# <%= f.submit "Remove Developer", class:'btn btn-outline-secondary'%>   
+   <%# <% end %> 
+
+   <p><br><br>Assign Developer to this project...</p>
    <%= form_with url: assign_project_project_path(@project), method: :post, model: @user do |f| %>
-      <%= f.select :uid, @users.map {|i| [i.name, i.id]}, class:"btn btn-default btn-primary"%>
+      <%= f.select :uid, @unassign_developers.map {|i| [i.name, i.id]}, class:"btn btn-default btn-primary"%>
       <%= f.submit "Assign Developer", class:'btn btn-outline-secondary'%>  
    <% end %>
  
@@ -45,6 +77,7 @@
 <div class="container">
     <%= link_to 'Back', projects_path(@project), class:'btn btn-outline-secondary'%>
 </div>
+
 
 
 

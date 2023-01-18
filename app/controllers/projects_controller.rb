@@ -1,7 +1,7 @@
 require 'pry'
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: [:edit, :update, :destroy, :project_details, :assign_project]
+  before_action :set_project, only: [:edit, :update, :destroy, :project_details, :assign_project, :remove_dev]
   
   def index
     if (current_user.type == 'Developer')
@@ -9,7 +9,6 @@ class ProjectsController < ApplicationController
     else
       @projects = Project.all
    end
-    
   end
 
   def show
@@ -66,13 +65,23 @@ class ProjectsController < ApplicationController
           render :new, status: :unprocessable_entity
         end
     else
-       redirect_to  project_details_project_path, :notice => "This Project has already been assigned"  
+       redirect_to  project_details_project_path, :alert => "This Project has already been assigned"  
     end
+  end
 
+  def remove_dev
+  
+    if(@project.project_assignments.where(:developer_id=>params[:format]).destroy_all)
+      redirect_to  project_details_project_path, :notice => "The developer is removed from the project successfully."  
+    else
+      render :project_details_project_path, status: :unprocessable_entity
+    end
   end
 
   def project_details
     @users=User.where(type: "Developer")
+    @project_developers=@project_developers
+    @unassign_developers=@users-@project.developers
   end
  
   private

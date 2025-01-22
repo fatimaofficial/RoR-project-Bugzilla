@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:edit, :update, :destroy, :project_details, :assign_project, :remove_dev]
   
   def index
-    if (current_user.type == 'Developer')
+    if (current_user.user_type == 'Developer')
       @projects = current_user.projects      
     else
       @projects = Project.all
@@ -79,7 +79,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_details
-    @users=User.where(type: "Developer")
+    @users=User.where(user_type: "Developer")
     @project_developers=@project_developers
     @unassign_developers=@users-@project.developers
   end

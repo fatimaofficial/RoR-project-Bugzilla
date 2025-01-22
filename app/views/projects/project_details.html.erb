@@ -1,5 +1,5 @@
 <h1>Project Details</h1>
-<%if(current_user.type=="Manager")%> 
+<%if(current_user.user_type=="Manager")%> 
    <div class="row">
       <div class="col-6">
       </div>
@@ -51,7 +51,7 @@
       <%= f.submit "Assign Developer", class:'btn btn-outline-secondary'%>  
    <% end %>
  
-<%elsif(current_user.type=="Qa") %>
+<%elsif(current_user.user_type=="Qa") %>
    <div class="row">
       <div class="col-6">
       </div>

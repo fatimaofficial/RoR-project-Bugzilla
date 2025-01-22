@@ -8,7 +8,7 @@
       <th scope="col">Type</th>
       <th scope="col">Status</th>
       <th scope="col">Deadline</th>
-      <%if(current_user.type!="Manager")%>
+      <%if(current_user.user_type!="Manager")%>
           <th scope="col">Actions</th>
       <%end%>
        <th colspan="3"></th>
@@ -25,10 +25,10 @@
         <td><%= i.bug_type %></td>
         <td><%= i.status %></td>
         <td><%=i.deadline %></td>
-        <%if(current_user.type=="Qa")%> 
+        <%if(current_user.user_type=="Qa")%> 
            <td><%= link_to 'Edit Bug', edit_project_bug_path(@project, i),class:'btn btn-outline-secondary'%></td>
            <td><%= button_to "Delete Bug",[@project,i], method: :delete, data: {confirm: "Are you sure?"},class:'btn btn-outline-secondary'%></td>
-        <%elsif(current_user.type=="Developer")%>
+        <%elsif(current_user.user_type=="Developer")%>
           <td><%= link_to 'Update status', edit_project_bug_path(@project, i),class:'btn btn-outline-secondary'%></td>
           <% if (i.status!="resolved")%>
               <td><%= link_to 'Pick Bug', assign_bug_project_bug_path(@project,i),class:'btn btn-outline-secondary',style:'margin-left: -42%;' %></td>

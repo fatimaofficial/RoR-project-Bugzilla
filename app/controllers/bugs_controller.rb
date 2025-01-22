@@ -52,7 +52,7 @@ class BugsController < ApplicationController
  
   def assign_bug
    
-    if(current_user.type == 'Developer')
+    if(current_user.user_type == 'Developer')
       if (BugAssignment.where(:developer_id=>current_user.id ,:bug_id=>@bug.id)==[])
         @bug_assignment=@bug.bug_assignments.create(developer_id: current_user.id)
 

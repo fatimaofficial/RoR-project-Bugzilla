@@ -2,7 +2,7 @@ require 'pry'
 class UsersController < ApplicationController
   
   def index
-    @users =  User.where(:type=>"Developer").or(User.where(:type=>"Qa"))
+    @users =  User.where(:user_type=>"Developer").or(User.where(:user_type=>"Qa"))
   end
   def new
     @user = User.new
